@@ -6,47 +6,32 @@
     android:layout_height="match_parent"
     tools:context="com.tang.customcontrol.MainActivity">
 
-    <RelativeLayout
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@mipmap/bg1">
+        android:contentDescription="@null"
+        android:scaleType="fitXY"
+        android:src="@mipmap/bg1" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="hello" />
-    </RelativeLayout>
-
-    <RelativeLayout
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@mipmap/bg2">
+        android:background="@mipmap/bg2"
+        android:contentDescription="@null"
+        android:scaleType="fitXY" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="hello" />
-    </RelativeLayout>
-
-    <RelativeLayout
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@mipmap/bg3">
+        android:background="@mipmap/bg3"
+        android:contentDescription="@null"
+        android:scaleType="fitXY" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="hello" />
-    </RelativeLayout>
-
-    <RelativeLayout
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@mipmap/bg4">
+        android:background="@mipmap/bg4"
+        android:contentDescription="@null"
+        android:scaleType="fitXY" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="hello" />
-    </RelativeLayout>
 </com.tang.customcontrol.VerticalLinearLayout>
