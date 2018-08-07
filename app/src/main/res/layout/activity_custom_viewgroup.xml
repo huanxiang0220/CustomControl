@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.tang.customcontrol.VerticalLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.tang.customcontrol.control.VerticalLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.tang.customcontrol.MainActivity">
+    tools:context="com.tang.customcontrol.ui.VerticalLinearLayoutActivity">
 
     <ImageView
         android:layout_width="match_parent"
@@ -34,4 +34,4 @@
         android:contentDescription="@null"
         android:scaleType="fitXY" />
 
-</com.tang.customcontrol.VerticalLinearLayout>
+</com.tang.customcontrol.control.VerticalLinearLayout>

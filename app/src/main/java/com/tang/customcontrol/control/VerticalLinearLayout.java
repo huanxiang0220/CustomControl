@@ -1,4 +1,4 @@
-package com.tang.customcontrol;
+package com.tang.customcontrol.control;
 
 import android.content.Context;
 import android.graphics.Canvas;
