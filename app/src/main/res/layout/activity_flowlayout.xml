@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.tang.customcontrol.control.FlowLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="334dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:background="@color/colorAccent"
+    android:paddingStart="10dp"
+    android:paddingTop="20dp"
+    tools:context="com.tang.customcontrol.ui.VerticalLinearLayoutActivity">
+
+    <TextView
+        style="@style/text_flag_01"
+        android:text="Welcome" />
+
+    <TextView
+        style="@style/text_flag_01"
+        android:text="IT工程师" />
+
+    <TextView
+        style="@style/text_flag_01"
+        android:text="学习ing" />
+
+    <TextView
+        style="@style/text_flag_01"
+        android:text="恋爱ing" />
+
+    <TextView
+        style="@style/text_flag_01"
+        android:text="挣钱ing" />
+
+    <TextView
+        style="@style/text_flag_01"
+        android:text="努力ing" />
+
+    <TextView
+        style="@style/text_flag_01"
+        android:text="I thick i can" />
+
+    <TextView
+        style="@style/text_flag_01"
+        android:text="IT工程师" />
+
+    <TextView
+        style="@style/text_flag_01"
+        android:text="学习ing" />
+
+    <TextView
+        style="@style/text_flag_01"
+        android:text="恋爱ing" />
+
+</com.tang.customcontrol.control.FlowLayout>
