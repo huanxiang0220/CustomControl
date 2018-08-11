@@ -1,9 +1,11 @@
 package com.tang.customcontrol.control;
 
 import android.content.Context;
+import android.graphics.Point;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +29,9 @@ public class FlowLayout extends ViewGroup {
 
     public FlowLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Point point = new Point();
+        wm.getDefaultDisplay().getSize(point);
     }
 
     @Override
@@ -52,23 +57,21 @@ public class FlowLayout extends ViewGroup {
             int childWidth = childView.getMeasuredWidth() + params.leftMargin + params.rightMargin;
             int childHeight = childView.getMeasuredHeight() + params.topMargin + params.bottomMargin;
 
-            if (lineWidth + childWidth + getPaddingStart() + getPaddingEnd() > getMeasuredWidth()) {//另起一行
-                lineHeight = childHeight;
-                lineWidth = childWidth;
-                width = Math.max(Math.max(lineWidth, childWidth), width);//取出最大的宽度
-                height += Math.max(lineHeight, childHeight);//取出最大的高度累加;
-
+            if (lineWidth + childWidth + getPaddingStart() + getPaddingEnd() > getMeasuredWidth()) {
+                lineWidth = childWidth;//另起一行
+                height += Math.max(lineHeight, childHeight);
+                lineHeight = childHeight;//新行的高度
+                width = Math.max(width, Math.max(lineWidth, childWidth));//最大的宽度
             } else {
                 lineWidth += childWidth;
                 lineHeight = Math.max(lineHeight, childHeight);
             }
 
-            if (i == count - 1) {//取出最大
-                height = Math.max(height, lineHeight);
+            if (i == count - 1) {
+                //最后一行
+                height += Math.max(childHeight, lineHeight);
                 width = Math.max(lineWidth, width);
-                height += lineHeight;
             }
-
         }
 
         setMeasuredDimension(widthMode == MeasureSpec.EXACTLY ? widthSize : width,
@@ -88,7 +91,6 @@ public class FlowLayout extends ViewGroup {
      */
     private List<Integer> mHeights = new ArrayList<>();
     private int lineWidth, lineHeight;
-    private int left, top;
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
@@ -106,7 +108,7 @@ public class FlowLayout extends ViewGroup {
                 mAllViews.add(lineViews);
                 lineViews = new ArrayList<>();
                 mHeights.add(lineHeight);
-                lineWidth = getPaddingStart();// 重置行宽
+                lineWidth = 0;// 重置行宽
             }
 
             //累计宽度
@@ -120,7 +122,7 @@ public class FlowLayout extends ViewGroup {
         mHeights.add(lineHeight);
         mAllViews.add(lineViews);
 
-        int left = getPaddingLeft(), top = getPaddingTop();
+        int left = getPaddingStart(), top = getPaddingTop();
         //所有行
         for (int i = 0; i < mAllViews.size(); i++) {
             //每一行
