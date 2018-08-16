@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.tang.customcontrol.control.hao.HaoRecyclerView;
 import com.tang.customcontrol.ui.BehaviorBaiduActivity;
 import com.tang.customcontrol.ui.BehaviorZhiHuActivity;
 import com.tang.customcontrol.ui.CustomViewGroupActivity;
 import com.tang.customcontrol.ui.FlowLayoutActivity;
+import com.tang.customcontrol.ui.HaoRecyclerViewActivity;
 import com.tang.customcontrol.ui.TagLayoutActivity;
 import com.tang.customcontrol.ui.VerticalLinearLayoutActivity;
 
@@ -33,7 +35,9 @@ public class SplashActivity extends AppCompatActivity {
             , R.id.tv_FlowLayout
             , R.id.tv_TagLayout
             , R.id.tv_zhihu
-            , R.id.tv_baidu})
+            , R.id.tv_baidu
+            , R.id.tv_HaoRecyclerView
+    })
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_VerticalLinearLayout:
@@ -53,6 +57,9 @@ public class SplashActivity extends AppCompatActivity {
                 break;
             case R.id.tv_baidu:
                 startActivity(new Intent(this, BehaviorBaiduActivity.class));
+                break;
+            case R.id.tv_HaoRecyclerView:
+                startActivity(new Intent(this, HaoRecyclerViewActivity.class));
                 break;
         }
     }

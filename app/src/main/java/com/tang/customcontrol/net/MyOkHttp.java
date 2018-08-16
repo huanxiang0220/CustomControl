@@ -27,6 +27,7 @@ public class MyOkHttp {
         client.setConnectTimeout(5000, TimeUnit.MILLISECONDS);
 
         Request request = new Request.Builder()
+                .get()
                 .url(url)
                 .build();
         try {
