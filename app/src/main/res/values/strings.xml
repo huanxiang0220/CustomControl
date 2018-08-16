@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CustomControl</string>
+    <string name="myBottomBarBehavior" translatable="false">com.tang.customcontrol.behavior.MyBottomBarBehavior</string>
 </resources>

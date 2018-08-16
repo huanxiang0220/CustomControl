@@ -31,6 +31,22 @@
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:text="FlowLayout" />
+
+        <TextView
+            android:id="@+id/tv_zhihu"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="Behavior仿知乎" />
+
+        <TextView
+            android:id="@+id/tv_baidu"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="Behavior仿百度" />
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

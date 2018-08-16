@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.tang.customcontrol.ui.BehaviorBaiduActivity;
+import com.tang.customcontrol.ui.BehaviorZhiHuActivity;
 import com.tang.customcontrol.ui.CustomViewGroupActivity;
 import com.tang.customcontrol.ui.FlowLayoutActivity;
 import com.tang.customcontrol.ui.VerticalLinearLayoutActivity;
@@ -25,7 +27,11 @@ public class SplashActivity extends AppCompatActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.tv_VerticalLinearLayout, R.id.tv_CustomViewGroup, R.id.tv_FlowLayout})
+    @OnClick({R.id.tv_VerticalLinearLayout
+            , R.id.tv_CustomViewGroup
+            , R.id.tv_FlowLayout
+            , R.id.tv_zhihu
+            , R.id.tv_baidu})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_VerticalLinearLayout:
@@ -36,6 +42,12 @@ public class SplashActivity extends AppCompatActivity {
                 break;
             case R.id.tv_FlowLayout:
                 startActivity(new Intent(this, FlowLayoutActivity.class));
+                break;
+            case R.id.tv_zhihu:
+                startActivity(new Intent(this, BehaviorZhiHuActivity.class));
+                break;
+            case R.id.tv_baidu:
+                startActivity(new Intent(this, BehaviorBaiduActivity.class));
                 break;
         }
     }

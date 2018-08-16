@@ -71,3 +71,145 @@ CustomControl：ViewGroup实现竖向引导界面
 	
 	在onMeasure()中，View和ViewGroup根据本身的父控件传入的测量值和模式，对自己的宽高进行确定，在onLayout(）
 	中完成childView的位置的指定，直到本身时View时，然后在onDrow()中完成自己的形态绘制。
+
+
+
+
+**6.妹纸小练习**
+
+https://gank.io/api/data/福利/10/1
+
+    StaggeredGridLayoutManager获取最后一条可见的位置
+    recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                    super.onScrolled(recyclerView, dx, dy);
+                    int[] lastPosition = layoutManager.findLastVisibleItemPositions(null);
+                    lastVisibleItemPosition = Math.max(lastPosition[0], lastPosition[1]);
+                }
+
+                @Override
+                public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                    super.onScrollStateChanged(recyclerView, newState);
+                    if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItemPosition + 2 >= layoutManager.getItemCount()) {
+                       //Do nothing
+                    }
+                }
+            });
+    Gson解析：
+    private List<MeiZhi> parse(String jsonData) {
+        return new Gson().fromJson(jsonData, new TypeToken<List<MeiZhi>>() {
+               }.getType());
+    }
+
+
+
+    <?xml version="1.0" encoding="utf-8"?>
+    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.tang.customcontrol.ui.BehaviorZhiHuActivity">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_scrollFlags="scroll|enterAlways" />
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/refreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:layout_gravity="bottom"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            app:layout_behavior="@string/myBottomBarBehavior">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="这是一个底栏"
+                android:textColor="#ffffff" />
+        </LinearLayout>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+    //底部BottomBar
+    public class MyBottomBarBehavior extends CoordinatorLayout.Behavior<View> {
+
+        public MyBottomBarBehavior(Context context, AttributeSet attrs) {
+            super(context, attrs);
+        }
+
+        @Override
+        public boolean layoutDependsOn(CoordinatorLayout parent, View child, View dependency) {
+    //        return super.layoutDependsOn(parent, child, dependency);
+            return dependency instanceof AppBarLayout;
+        }
+
+        @Override
+        public boolean onDependentViewChanged(CoordinatorLayout parent, View child, View dependency) {
+            child.setTranslationY(Math.abs(dependency.getTop()));
+    //        return super.onDependentViewChanged(parent, child, dependency);
+            return true;
+        }
+    }
+
+    public class MyFabBehavior extends CoordinatorLayout.Behavior<FloatingActionButton> {
+
+        public MyFabBehavior(Context context, AttributeSet attrs) {
+            super(context, attrs);
+        }
+
+        @Override
+        public boolean onStartNestedScroll(CoordinatorLayout coordinatorLayout, FloatingActionButton child, View directTargetChild, View target, int nestedScrollAxes) {
+    //        return super.onStartNestedScroll(coordinatorLayout, child, directTargetChild, target, nestedScrollAxes);
+            return (nestedScrollAxes & ViewCompat.SCROLL_AXIS_VERTICAL) != 0;//判断是否竖直滚动
+        }
+
+        @Override
+        public void onNestedPreScroll(CoordinatorLayout coordinatorLayout, FloatingActionButton child, View target, int dx, int dy, int[] consumed) {
+            super.onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed);
+            //dy大于0是向上滚动 小于0是向下滚动
+        }
+
+        @Override
+        public boolean onDependentViewChanged(CoordinatorLayout parent, FloatingActionButton child, View dependency) {
+            return super.onDependentViewChanged(parent, child, dependency);
+        }
+    }
+    //仿百度
+     behavior = BottomSheetBehavior.from(mIv);
+     behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+            }
+        });
+     behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);//折叠
+     behavior.setState(BottomSheetBehavior.STATE_EXPANDED);//展开
