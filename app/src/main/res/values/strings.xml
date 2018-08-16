@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">CustomControl</string>
     <string name="myBottomBarBehavior" translatable="false">com.tang.customcontrol.behavior.MyBottomBarBehavior</string>
+
+    <string-array name="tag">
+        <item>宝安区</item>
+        <item>罗湖区</item>
+        <item>龙岗区</item>
+        <item>前海区</item>
+        <item>花溪区</item>
+        <item>金阳区</item>
+        <item>红区</item>
+    </string-array>
 </resources>

@@ -9,6 +9,7 @@ import com.tang.customcontrol.ui.BehaviorBaiduActivity;
 import com.tang.customcontrol.ui.BehaviorZhiHuActivity;
 import com.tang.customcontrol.ui.CustomViewGroupActivity;
 import com.tang.customcontrol.ui.FlowLayoutActivity;
+import com.tang.customcontrol.ui.TagLayoutActivity;
 import com.tang.customcontrol.ui.VerticalLinearLayoutActivity;
 
 import butterknife.ButterKnife;
@@ -30,6 +31,7 @@ public class SplashActivity extends AppCompatActivity {
     @OnClick({R.id.tv_VerticalLinearLayout
             , R.id.tv_CustomViewGroup
             , R.id.tv_FlowLayout
+            , R.id.tv_TagLayout
             , R.id.tv_zhihu
             , R.id.tv_baidu})
     public void onViewClicked(View view) {
@@ -42,6 +44,9 @@ public class SplashActivity extends AppCompatActivity {
                 break;
             case R.id.tv_FlowLayout:
                 startActivity(new Intent(this, FlowLayoutActivity.class));
+                break;
+            case R.id.tv_TagLayout:
+                startActivity(new Intent(this, TagLayoutActivity.class));
                 break;
             case R.id.tv_zhihu:
                 startActivity(new Intent(this, BehaviorZhiHuActivity.class));
