@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -32,7 +33,7 @@ import butterknife.ButterKnife;
  */
 public class BehaviorZhiHuActivity extends AppCompatActivity {
 
-    public static final String MainUrl = "https://gank.io/api/data/%E7%A6%8F%E5%88%A9/10/";
+    public static final String MainUrl = "https://gank.io/api/data/福利/10/";
 
     @Bind(R.id.recyclerView)
     RecyclerView recyclerView;
@@ -108,6 +109,7 @@ public class BehaviorZhiHuActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
+            if (TextUtils.isEmpty(result)) return;
             try {
                 String jsonData = new JSONObject(result).getString("results");
                 List<MeiZhi> meiZhis = parse(jsonData);

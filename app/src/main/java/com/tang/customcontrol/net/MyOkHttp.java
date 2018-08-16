@@ -28,7 +28,6 @@ public class MyOkHttp {
 
         Request request = new Request.Builder()
                 .url(url)
-                .get()
                 .build();
         try {
             Response response = client.newCall(request).execute();

@@ -3,12 +3,14 @@
     <string name="myBottomBarBehavior" translatable="false">com.tang.customcontrol.behavior.MyBottomBarBehavior</string>
 
     <string-array name="tag">
+        <item>丰台区</item>
+        <item>石景山区</item>
+        <item>海淀区</item>
+        <item>漳州市</item>
+        <item>朝阳区</item>
+        <item>福田区</item>
         <item>宝安区</item>
         <item>罗湖区</item>
         <item>龙岗区</item>
-        <item>前海区</item>
-        <item>花溪区</item>
-        <item>金阳区</item>
-        <item>红区</item>
     </string-array>
 </resources>
