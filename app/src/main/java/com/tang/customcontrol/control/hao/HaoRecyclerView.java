@@ -53,10 +53,6 @@ public class HaoRecyclerView extends RecyclerView {
         return isLoading;
     }
 
-    public void setLoading(boolean loading) {
-        isLoading = loading;
-    }
-
     public boolean isCanLoadMore() {
         return isCanLoadMore;
     }
@@ -67,6 +63,10 @@ public class HaoRecyclerView extends RecyclerView {
 
     public void setLoadMoreListener(LoadMoreListener loadMoreListener) {
         this.loadMoreListener = loadMoreListener;
+    }
+
+    public void completeLoadMore() {
+        isLoading = false;
     }
 
     //点击监听
@@ -85,7 +85,7 @@ public class HaoRecyclerView extends RecyclerView {
             if (manager instanceof GridLayoutManager) {
                 lastVisibleItem = ((GridLayoutManager) manager).findLastVisibleItemPosition();
             } else if (manager instanceof StaggeredGridLayoutManager) {
-                int[] position = ((StaggeredGridLayoutManager) manager).findFirstVisibleItemPositions(null);
+                int[] position = ((StaggeredGridLayoutManager) manager).findLastVisibleItemPositions(null);
                 lastVisibleItem = lastPositions(position);
             } else {
                 lastVisibleItem = ((LinearLayoutManager) manager).findLastVisibleItemPosition();

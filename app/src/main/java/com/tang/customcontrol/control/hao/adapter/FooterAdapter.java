@@ -39,9 +39,7 @@ public class FooterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             ((GridLayoutManager) manager).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                 @Override
                 public int getSpanSize(int position) {
-                    //验证(FOOTVIEW！=-1)
-                    if (getItemViewType(position) == RecyclerView.INVALID_TYPE ||
-                            getItemViewType(position) == RecyclerView.INVALID_TYPE - 1)
+                    if (getItemViewType(position) == FOOTVIEW)
                         return spanCount;
                     return 1;
                 }
@@ -49,6 +47,9 @@ public class FooterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
     }
 
+    /**
+     * 解决流水布局，保证加载横多独占屏幕宽度
+     */
     @Override
     public void onViewAttachedToWindow(RecyclerView.ViewHolder holder) {
         super.onViewAttachedToWindow(holder);
@@ -65,7 +66,7 @@ public class FooterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
      * 当前是否是footer
      */
     private boolean isFooter(int position) {
-        return position < getItemCount() && position > getItemCount() - 1;
+        return position < getItemCount() && position >= getItemCount() - 1;
     }
 
     @Override

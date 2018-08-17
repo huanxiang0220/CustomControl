@@ -1,11 +1,13 @@
 # 自定义控件Demo：
-CustomControl：ViewGroup实现竖向引导界面
+**CustomControl：ViewGroup实现竖向引导界面**
 
-1、自定义控件的执行顺序：onMeasure -> onSizeChanged -> onLayout - > onDraw - computeScroll(被不断的不断调用);
+**1、自定义控件的执行顺序：** onMeasure -> onSizeChanged -> onLayout - > onDraw - computeScroll(被不断的不断调用);
 
-2、getScrollY（），在最顶端为0，在最末端(底部)为getMeasuredHeight() - mScreenHeight。
-疑问：为什么在做临界值判断时不用：if (dy < 0 && scrollY <= 0)//往下拉，而是 if (dy < 0 && scrollY + offsetY <= 0)//往下拉,
-		 	offsetY是当前的移动的Y与上次滑动的Y的差值，
+**2、getScrollY（）**
+
+	在最顶端为0，在最末端(底部)为getMeasuredHeight() - mScreenHeight。
+	疑问：为什么在做临界值判断时不用：if (dy < 0 && scrollY <= 0)//往下拉，而是 if (dy < 0 && scrollY + offsetY <= 0)//往下拉,
+	offsetY是当前的移动的Y与上次滑动的Y的差值，
       
       错误代码段：
                 if (dy < 0 && scrollY + dy <= 0)//往下拉,往下拉多少,
@@ -43,7 +45,8 @@ CustomControl：ViewGroup实现竖向引导界面
 
 
 
-自定义控件CustomViewGroup：分别将0，1，2，3位置的childView依次设置到左上、右上、左下、右下的位置
+**自定义控件CustomViewGroup**：分别将0，1，2，3位置的childView依次设置到左上、右上、左下、右下的位置
+
 
 **1. viewGroup的职责：**
 
@@ -213,3 +216,119 @@ https://gank.io/api/data/福利/10/1
         });
      behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);//折叠
      behavior.setState(BottomSheetBehavior.STATE_EXPANDED);//展开
+
+
+**HaoRecyclerView:**
+	
+	//装饰
+	public void setAdapter(Adapter adapter) {
+        footerAdapter = new FooterAdapter(this, moreView, adapter);
+        super.setAdapter(footerAdapter);
+        adapter.registerAdapterDataObserver(observer);
+    }
+	
+	//重新注册观察者
+	private AdapterDataObserver observer = new AdapterDataObserver() {
+        @Override
+        public void onChanged() {
+            super.onChanged();
+            footerAdapter.notifyDataSetChanged();
+        }
+
+        @Override
+        public void onItemRangeChanged(int positionStart, int itemCount) {
+            super.onItemRangeChanged(positionStart, itemCount);
+            footerAdapter.notifyItemChanged(positionStart, itemCount);
+        }
+
+        @Override
+        public void onItemRangeChanged(int positionStart, int itemCount, Object payload) {
+            super.onItemRangeChanged(positionStart, itemCount, payload);
+            footerAdapter.notifyItemRangeChanged(positionStart, itemCount, payload);
+        }
+
+        @Override
+        public void onItemRangeInserted(int positionStart, int itemCount) {
+            super.onItemRangeInserted(positionStart, itemCount);
+            footerAdapter.notifyItemRangeInserted(positionStart, itemCount);
+        }
+
+        @Override
+        public void onItemRangeRemoved(int positionStart, int itemCount) {
+            super.onItemRangeRemoved(positionStart, itemCount);
+            footerAdapter.notifyItemRangeRemoved(positionStart, itemCount);
+        }
+
+        @Override
+        public void onItemRangeMoved(int fromPosition, int toPosition, int itemCount) {
+            super.onItemRangeMoved(fromPosition, toPosition, itemCount);
+            footerAdapter.notifyItemRangeRemoved(fromPosition, toPosition);
+        }
+    };
+		
+	//滑动监听
+	    @Override
+    public void onScrollStateChanged(int state) {
+        super.onScrollStateChanged(state);
+        if (state == RecyclerView.SCROLL_STATE_IDLE && loadMoreListener != null && !isLoading && isCanLoadMore) {
+            int lastVisibleItem;
+            LayoutManager manager = getLayoutManager();
+            if (manager instanceof GridLayoutManager) {
+                lastVisibleItem = ((GridLayoutManager) manager).findLastVisibleItemPosition();
+            } else if (manager instanceof StaggeredGridLayoutManager) {
+                int[] position = ((StaggeredGridLayoutManager) manager).findFirstVisibleItemPositions(null);
+                lastVisibleItem = lastPositions(position);
+            } else {
+                lastVisibleItem = ((LinearLayoutManager) manager).findLastVisibleItemPosition();
+            }
+
+            if (manager.getChildCount() > 0 && lastVisibleItem >= manager.getChildCount() - 1) {
+                isLoading = true;
+                loadMoreListener.onLoadMore();
+            }
+        }
+    }
+
+    private int lastPositions(int[] positions) {
+        int last = positions[0];
+        for (int position : positions) {
+            if (position > last)
+                last = position;
+        }
+        return last;
+    }
+
+	//重写FooterAdapter基本方法
+	 /**
+     * 解决FootView在不同的Manager下独占一行
+     */
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
+        if (manager instanceof GridLayoutManager) {
+            final int spanCount = ((GridLayoutManager) manager).getSpanCount();
+            ((GridLayoutManager) manager).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                @Override
+                public int getSpanSize(int position) {
+                    if (getItemViewType(position) == FOOTVIEW)
+                        return spanCount;
+                    return 1;
+                }
+            });
+        }
+    }
+    /**
+     * 解决流水布局，保证加载横多独占屏幕宽度
+     */
+    @Override
+    public void onViewAttachedToWindow(RecyclerView.ViewHolder holder) {
+        super.onViewAttachedToWindow(holder);
+        ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();
+        if (layoutParams != null && layoutParams instanceof StaggeredGridLayoutManager.LayoutParams
+                && isFooter(holder.getLayoutPosition())) {
+            StaggeredGridLayoutManager.LayoutParams lp =
+                    (StaggeredGridLayoutManager.LayoutParams) layoutParams;
+            lp.setFullSpan(true);
+        }
+    }

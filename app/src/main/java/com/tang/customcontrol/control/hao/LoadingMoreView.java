@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -30,7 +31,7 @@ public class LoadingMoreView extends LinearLayout {
         setGravity(Gravity.CENTER);
         setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT));
-        View view = View.inflate(context, R.layout.layout_loadingmore, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.layout_loadingmore, this, false);
 
         addView(view);
     }

@@ -3,8 +3,9 @@ package com.tang.customcontrol.ui;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -29,6 +30,7 @@ public class HaoRecyclerViewActivity extends AppCompatActivity implements LoadMo
     @Bind(R.id.recyclerView)
     HaoRecyclerView recyclerView;
     private List<ItemBean> mList = new ArrayList<>();
+    private ItemAdapter adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,19 +38,27 @@ public class HaoRecyclerViewActivity extends AppCompatActivity implements LoadMo
         setContentView(R.layout.activity_haorecyclerview);
         ButterKnife.bind(this);
 
-        for (int i = 1; i <= 20; i++) {
-            mList.add(new ItemBean("item", "item:" + i));
-        }
+        mList.addAll(getList(20));
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this,
-                LinearLayoutManager.VERTICAL, false));
-        recyclerView.setAdapter(new ItemAdapter());
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        adapter = new ItemAdapter();
+        recyclerView.setAdapter(adapter);
         recyclerView.setLoadMoreListener(this);
+    }
+
+    private List<ItemBean> getList(int count) {
+        List<ItemBean> itemBeanList = new ArrayList<>();
+        for (int i = 1; i <= count; i++) {
+            itemBeanList.add(new ItemBean("item", "item:" + i));
+        }
+        return itemBeanList;
     }
 
     @Override
     public void onLoadMore() {
-
+        mList.addAll(getList(6));
+        adapter.notifyDataSetChanged();
+        recyclerView.completeLoadMore();
     }
 
     private class ItemAdapter extends RecyclerView.Adapter<ItemSplashHolder> {
