@@ -71,9 +71,14 @@ public class LayoutAnimationListActivity extends AppCompatActivity implements Lo
 
     @Override
     public void onLoadMore() {
-        adapter.addAll(getList(6));
-        adapter.notifyDataSetChanged();
-        recyclerView.completeLoadMore();
+        recyclerView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                adapter.addAll(getList(6));
+                adapter.notifyDataSetChanged();
+                recyclerView.completeLoadMore();
+            }
+        }, 2000);
     }
 
     public void FollDown(View view) {

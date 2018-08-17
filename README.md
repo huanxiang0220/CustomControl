@@ -332,3 +332,48 @@ https://gank.io/api/data/福利/10/1
             lp.setFullSpan(true);
         }
     }
+
+**LayoutAnimation动画**
+	
+	1、首先定义item动画：
+	<?xml version="1.0" encoding="utf-8"?>
+	<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="250">
+
+    <translate
+        android:fromYDelta="-20%"
+        android:interpolator="@android:anim/decelerate_interpolator"
+        android:toYDelta="0" />
+
+    <alpha
+        android:fromAlpha="0"
+        android:interpolator="@android:anim/decelerate_interpolator"
+        android:toAlpha="1" />
+
+    <scale
+        android:fromXScale="105%"
+        android:fromYScale="105%"
+        android:interpolator="@android:anim/decelerate_interpolator"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:toXScale="100%"
+        android:toYScale="100%" />
+
+	</set>
+	
+	2、定义LayoutAnimation动画：
+	<?xml version="1.0" encoding="utf-8"?>
+	<layoutAnimation xmlns:android="http://schemas.android.com/apk/res/android"
+    android:animation="@anim/item_animation_from_bottom"
+    android:animationOrder="normal"
+    android:delay="15%" />
+
+	3、引用
+	xml方式：
+	android:layoutAnimation="@anim/layout_animation_fall_down"
+	代码方式：
+	LayoutAnimationController controller =
+                AnimationUtils.loadLayoutAnimation(this, R.anim.layout_animation_fall_down);
+	viewGroup.setLayoutAnimation(controller);
+	//数据发生变化是调用
+	viewGroup.scheduleLayoutAnimation();
