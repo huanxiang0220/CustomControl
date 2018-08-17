@@ -377,3 +377,59 @@ https://gank.io/api/data/福利/10/1
 	viewGroup.setLayoutAnimation(controller);
 	//数据发生变化是调用
 	viewGroup.scheduleLayoutAnimation();
+
+
+**ShadowLayout阴影**
+	
+步骤1：
+
+	 /**
+     *  阴影的大小范围
+     */
+     private float radius;
+     /**
+     *  阴影x轴的偏移量
+     */
+     private float dx;
+     /**
+     *  阴影y轴的偏移量
+     */
+     private float dy;
+     /**
+     *  阴影颜色
+     */
+     private int shadowColor;
+
+	 public ShadowLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        setWillNotDraw(false);//保证onDraw()执行
+        setLayerType(View.LAYER_TYPE_SOFTWARE, null);//关闭硬件加速
+
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.ShadowLayout);
+        if (typedArray != null) {
+            radius = typedArray.getDimension(R.styleable.ShadowLayout_ShadowLayout_Radius, dip2px(5));
+            dx = typedArray.getDimension(R.styleable.ShadowLayout_ShadowLayout_Dx, dip2px(0));
+            dy = typedArray.getDimension(R.styleable.ShadowLayout_ShadowLayout_Dy, dip2px(0));
+            shadowColor = typedArray.getColor(R.styleable.ShadowLayout_ShadowLayout_ShadowColor,
+                    ContextCompat.getColor(getContext(), android.R.color.black));
+            mShadowSide = typedArray.getInt(R.styleable.ShadowLayout_ShadowLayout_Side, ALL);
+            typedArray.recycle();
+        }
+
+        mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);//mPaint.setAntiAlias(true)
+        mPaint.setColor(Color.TRANSPARENT);//透明
+        mPaint.setShadowLayer(radius, dx, dy, shadowColor);
+    }
+	
+步骤2：
+
+	//onMeasure、onLayout改变ViewGroup的高宽预留出阴影的面积
+	
+步骤3：
+
+	//实现阴影
+	@Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        canvas.drawRect(mRectF, mPaint);
+    }

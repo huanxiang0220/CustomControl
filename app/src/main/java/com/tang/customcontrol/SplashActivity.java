@@ -12,6 +12,7 @@ import com.tang.customcontrol.ui.CustomViewGroupActivity;
 import com.tang.customcontrol.ui.FlowLayoutActivity;
 import com.tang.customcontrol.ui.HaoRecyclerViewActivity;
 import com.tang.customcontrol.ui.LayoutAnimationListActivity;
+import com.tang.customcontrol.ui.ShadowLayoutActivity;
 import com.tang.customcontrol.ui.TagLayoutActivity;
 import com.tang.customcontrol.ui.VerticalLinearLayoutActivity;
 
@@ -39,6 +40,7 @@ public class SplashActivity extends AppCompatActivity {
             , R.id.tv_baidu
             , R.id.tv_HaoRecyclerView
             , R.id.tv_LayoutAnimation
+            , R.id.tv_ShadowLayout
     })
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -65,6 +67,9 @@ public class SplashActivity extends AppCompatActivity {
                 break;
             case R.id.tv_LayoutAnimation:
                 startActivity(new Intent(this, LayoutAnimationListActivity.class));
+                break;
+            case R.id.tv_ShadowLayout:
+                startActivity(new Intent(this, ShadowLayoutActivity.class));
                 break;
         }
     }

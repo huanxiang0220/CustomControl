@@ -28,6 +28,7 @@
         <activity android:name=".ui.BehaviorBaiduActivity" />
         <activity android:name=".ui.HaoRecyclerViewActivity" />
         <activity android:name=".ui.LayoutAnimationListActivity" />
+        <activity android:name=".ui.ShadowLayoutActivity" />
     </application>
 
 </manifest>
