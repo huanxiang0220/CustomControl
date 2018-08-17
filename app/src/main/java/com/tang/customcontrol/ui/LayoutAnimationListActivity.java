@@ -38,7 +38,7 @@ public class LayoutAnimationListActivity extends AppCompatActivity implements Lo
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_haorecyclerview);
+        setContentView(R.layout.activity_layoutanimation);
         ButterKnife.bind(this);
 
         LayoutAnimationController controller = AnimationUtils.loadLayoutAnimation(this,
