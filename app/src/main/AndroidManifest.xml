@@ -27,6 +27,7 @@
         <activity android:name=".ui.BehaviorZhiHuActivity" />
         <activity android:name=".ui.BehaviorBaiduActivity" />
         <activity android:name=".ui.HaoRecyclerViewActivity" />
+        <activity android:name=".ui.LayoutAnimationListActivity" />
     </application>
 
 </manifest>

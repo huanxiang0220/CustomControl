@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.tang.customcontrol.R;
+import com.tang.customcontrol.bean.ItemBean;
 import com.tang.customcontrol.control.hao.HaoRecyclerView;
 import com.tang.customcontrol.control.hao.LoadMoreListener;
 import com.tang.customcontrol.holder.ItemSplashHolder;
@@ -69,8 +70,8 @@ public class HaoRecyclerViewActivity extends AppCompatActivity implements LoadMo
 
         @Override
         public void onBindViewHolder(ItemSplashHolder holder, int position) {
-            holder.getTvTitle().setText(getItem(position).title);
-            holder.getTvDesc().setText(getItem(position).desc);
+            holder.getTvTitle().setText(getItem(position).getTitle());
+            holder.getTvDesc().setText(getItem(position).getDesc());
         }
 
         private ItemBean getItem(int position) {
@@ -80,16 +81,6 @@ public class HaoRecyclerViewActivity extends AppCompatActivity implements LoadMo
         @Override
         public int getItemCount() {
             return mList.size();
-        }
-    }
-
-    private static class ItemBean {
-        private String title;
-        private String desc;
-
-        ItemBean(String title, String desc) {
-            this.title = title;
-            this.desc = desc;
         }
     }
 
